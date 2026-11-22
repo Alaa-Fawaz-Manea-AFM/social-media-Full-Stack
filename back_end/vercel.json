@@ -18,7 +18,8 @@
                 "DELETE"
             ],
             "headers":{
-                "Access-Control-Allow-Origin":"*"
+                "Access-Control-Allow-Origin":"https://social-media-full-stack-fzzf.vercel.app"
+                
             }
         }
     ]
