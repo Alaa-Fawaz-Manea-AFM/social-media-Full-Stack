@@ -26,16 +26,17 @@ async function bootstrap() {
   app.use(json());
   const allowedOrigins = [CLIENT_URL];
   app.enableCors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
+    origin: allowedOrigins,
+    // origin: (origin, callback) => {
+    //   if (!origin || allowedOrigins.includes(origin)) {
+    //     callback(null, true);
+    //   } else {
+    //     callback(new Error('Not allowed by CORS'));
+    //   }
+    // },
     credentials: true,
     methods:'GET, HEAD, PUT, POST, DELETE, POTIONS, PATCH',
-    allawedHeaders:'Origin, X-Request-With, Content-Type, Accept, Authentication, Access-Control-Allow-Credentials, Access-control-allowed-credentials, Access-control-allow-headers, Access-control-allow-methods, Access-control-allow-origin, User-Agent, Referer, Accept-Encoding, Accept-Language, Access-Control-Request-Headers, Cashe-Control, Pragma'
+    allawedHeaders:'Origin, X-Requested-With, Content-Type, Accept, Authentication, Access-control-allow-credentials, Access-control-allow-headers, Access-control-allow-methods, Access-control-allow-origin, User-Agent, Referer, Accept-Encoding, Accept-Language, Access-Control-Request-Headers, Cache-Control, Pragma'
   });
   app.enableShutdownHooks();
   await app.listen(process.env.PORT || 3001);
