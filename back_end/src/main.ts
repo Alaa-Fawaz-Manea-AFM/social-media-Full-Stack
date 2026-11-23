@@ -27,7 +27,7 @@ async function bootstrap() {
   
 const allowedOrigins = [
   'https://social-media-full-stack-fzzf.vercel.app',
-  'http://localhost:3001'
+  'http://localhost:3000'
 ];
 
 app.enableCors({
