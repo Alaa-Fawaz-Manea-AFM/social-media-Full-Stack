@@ -16,19 +16,16 @@ export const toggleLikeAction = async (postId: string) => {
       };
     }
 
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/likes/${postId}`,
-      {
-        method: "POST",
-        headers: {
-          Cookie: [
-            `accessToken=${accessToken}`,
-            ...(refreshToken ? [`refreshToken=${refreshToken}`] : []),
-          ].join("; "),
-        },
-        cache: "no-store",
+    const response = await fetch(`${process.env.API_URL}/likes/${postId}`, {
+      method: "POST",
+      headers: {
+        Cookie: [
+          `accessToken=${accessToken}`,
+          ...(refreshToken ? [`refreshToken=${refreshToken}`] : []),
+        ].join("; "),
       },
-    );
+      cache: "no-store",
+    });
 
     const data = await response.json();
 
