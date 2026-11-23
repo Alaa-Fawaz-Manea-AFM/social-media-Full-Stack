@@ -26,8 +26,7 @@ const PeoplePage = async ({
 
     users = data?.data?.users || [];
     totalPage = data?.data?.meta?.totalPage || 0;
-  } catch (error) {
-    console.error("Backend Error caught safely:", error);
+  } catch {
     redirect("/people?page=1");
   }
 

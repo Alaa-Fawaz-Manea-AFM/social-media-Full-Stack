@@ -1,13 +1,15 @@
 "use client";
+
 import { useUserContext } from "@/context/MyState";
+import { logoutAction } from "@/actions/auth";
 import { useRouter } from "next/navigation";
 import { Log_Out } from "@/public/assets";
 import { BiLogIn } from "react-icons/bi";
 import { IUser } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
-import AxiosClient from "@/lib/axios-client";
 import { toast } from "react-toastify";
+import { useState } from "react";
 
 type IBtnLog = {
   user: IUser | null;
@@ -16,25 +18,33 @@ type IBtnLog = {
 
 const BtnLogOutAndIn = ({ user, toggleMenu }: IBtnLog) => {
   const { setUser } = useUserContext();
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleSignOut = async () => {
-    try {
-      AxiosClient.post("auth/logout");
-      setUser(null);
-      router.refresh();
-    } catch {
+    setLoading(true);
+    const result = await logoutAction();
+
+    if (!result.success) {
       toast.error("Error logOut");
+      setLoading(false);
+      return;
     }
+
+    setUser(null);
+    router.refresh();
+    router.push("/log-in");
+    setLoading(false);
   };
 
   return (
     <>
       {user?.id ? (
-        <div
+        <button
+          disabled={loading}
           title="Log Out"
           onClick={handleSignOut}
-          className="flex items-center ssx:pl-8 gap-3 cursor-pointer"
+          className={`${loading ? "opacity-5" : ""} flex items-center ssx:pl-8 gap-3 cursor-pointer`}
         >
           <Image
             width={35}
@@ -44,8 +54,9 @@ const BtnLogOutAndIn = ({ user, toggleMenu }: IBtnLog) => {
             className="cursor-pointer"
             unoptimized
           />
+
           {!toggleMenu && <span className="font-semibold text-xl">LogOut</span>}
-        </div>
+        </button>
       ) : (
         <Link
           title="Log in"

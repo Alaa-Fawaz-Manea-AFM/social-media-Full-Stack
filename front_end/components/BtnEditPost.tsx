@@ -1,5 +1,5 @@
 "use client";
-import { handleRemovePosts } from "@/constant/api";
+import { removePostAction } from "@/actions/posts";
 import { useUserContext } from "@/context/MyState";
 import { Delete, Edit } from "@/public/assets";
 import { IPosts } from "@/types";
@@ -7,6 +7,7 @@ import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const BtnEditPost = ({
   profile,
@@ -19,9 +20,17 @@ const BtnEditPost = ({
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
-  const handleRemovePostsFUN = () => {
+  const handleRemovePostsFUN = async () => {
     setIsOpen(false);
-    handleRemovePosts(post.id, router);
+    const result = await removePostAction(post.id);
+
+    if (result.success) {
+      router.refresh();
+      router.push("/");
+      toast.success(result.message);
+    } else {
+      toast.error(result.message);
+    }
   };
 
   return (

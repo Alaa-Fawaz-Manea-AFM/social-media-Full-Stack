@@ -77,11 +77,6 @@ export class PostService {
 
   async getAllPostsAndUsersHomePage(query: CurseDto, currentUserId?: string) {
     const { curseId, targetUserId, limit = 3 } = query;
-
-    // console.log('====================================');
-    // console.log(currentUserId);
-    // console.log(curseId);
-    // console.log('====================================');
     const where = targetUserId
       ? {
           id: targetUserId,

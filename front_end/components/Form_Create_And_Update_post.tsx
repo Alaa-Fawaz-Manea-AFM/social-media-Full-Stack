@@ -128,7 +128,7 @@ const Form_Create_And_Update_post = ({
       <BtnCAEd
         loading={loading}
         valid={valid}
-        title="Create Post"
+        title={type}
         handleCancel={handleCancel}
       />
     </form>

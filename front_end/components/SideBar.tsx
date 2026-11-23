@@ -83,7 +83,6 @@ const SideBar = () => {
         </div>
 
         <div className="flex flex-row-reverse ssx:h-full ssx:flex-col ssx:justify-between gap-2">
-          {/* 3. ربطنا الـ Container بالـ dropdownRef هنا ليراقب الزائر والمستخدم معاً */}
           <div
             ref={dropdownRef}
             className="flex relative items-center justify-center gap-2 max-ssx:pr-5"
@@ -160,7 +159,7 @@ const SideBar = () => {
                 </span>
 
                 {toggleLogOut && (
-                  <div className="absolute flex flex-col items-center space-y-4 p-5 right-0 rounded-xl top-14 ssx:hidden sidebar bg-[#1F1F22] z-50 min-w-46 shadow-xl">
+                  <div className="absolute flex flex-col items-center space-y-4 p-5 right-0 rounded-xl top-14 ssx:hidden sidebar bg-[#1F1F22] z-50 min-w-60 max-w-60 shadow-xl">
                     <UserInfCercle user={user} />
                     <div className="w-full pt-2">
                       <BtnLogOutAndIn user={user} toggleMenu={toggleMenu} />

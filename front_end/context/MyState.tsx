@@ -10,7 +10,7 @@ import {
   useState,
 } from "react";
 
-import { getUserData } from "@/constant/api";
+import { getUserDataAction } from "@/actions/auth";
 import { IPosts, IUser } from "@/types";
 
 type IValue = {
@@ -38,10 +38,11 @@ const MyState = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      try {
-        const data = await getUserData();
-        setUser(data);
-      } catch {
+      const result = await getUserDataAction();
+
+      if (result.success) {
+        setUser(result.user);
+      } else {
         setUser(null);
       }
     };

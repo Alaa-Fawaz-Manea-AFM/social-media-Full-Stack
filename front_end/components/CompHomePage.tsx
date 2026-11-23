@@ -1,6 +1,7 @@
 "use client";
+
 import { useCallback, useRef, useState } from "react";
-import AxiosClient from "@/lib/axios-client";
+import { getMorePosts } from "@/actions/posts";
 import { IPosts } from "@/types";
 import UserInfCercle from "./UserInfCercle";
 import BtnSeeMore from "./BtnSeeMore";
@@ -30,27 +31,27 @@ export default function CompHomePage({
   const fetchMore = async () => {
     if (loading || !hasMore) return;
 
-    try {
-      setLoading(true);
+    setLoading(true);
+    const ApiUrl = targetUserId
+      ? `posts/home-page?curseId=${cursorRef.current || ""}&targetUserId=${targetUserId}`
+      : `posts/home-page?curseId=${cursorRef.current || ""}`;
 
-      const ApiUrl = targetUserId
-        ? `posts/home-page?curseId=${cursorRef.current || ""}&targetUserId=${targetUserId}`
-        : `posts/home-page?curseId=${cursorRef.current || ""}`;
-      const { data } = await AxiosClient.get(ApiUrl);
-
-      const newPosts = data?.data?.posts || [];
-
-      if (newPosts.length === 0) {
-        setHasMore(false);
-        return;
-      }
-
-      setPosts((prev) => [...prev, ...newPosts]);
-
-      cursorRef.current = newPosts[newPosts.length - 1]?.id || null;
-    } finally {
+    const result = await getMorePosts(ApiUrl);
+    if (!result.success) {
       setLoading(false);
+      return;
     }
+    const newPosts = result.data?.data?.posts || [];
+    if (newPosts.length === 0) {
+      setHasMore(false);
+      setLoading(false);
+      return;
+    }
+
+    setPosts((prev) => [...prev, ...newPosts]);
+
+    cursorRef.current = newPosts[newPosts.length - 1]?.id || null;
+    setLoading(false);
   };
 
   const lastPostRef = useCallback(
@@ -91,6 +92,7 @@ export default function CompHomePage({
                 <BtnSeeMore details={post.caption} length={130} />
               </div>
             )}
+
             <Link
               href={`/post/${post.id}/${post.userId}`}
               className="relative w-full h-72 block"
@@ -105,12 +107,14 @@ export default function CompHomePage({
                 />
               )}
             </Link>
+
             <div className="flex justify-between px-2">
               <BtnLike
                 likeCounts={post.likeCounts}
                 isliked={post.isLiked}
                 postId={post.id}
               />
+
               <BtnSaved postId={post.id} isSaved={post.isSaved} />
             </div>
           </div>

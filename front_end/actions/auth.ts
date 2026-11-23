@@ -1,74 +1,113 @@
 "use server";
 
+import { AxiosServer } from "@/lib/axios-server";
+import { IFormSign_up, IFormLog_In } from "@/types";
+import { AxiosResponse } from "axios";
 import { cookies } from "next/headers";
 
-const API_URL = process.env.API_URL!;
-
-export async function loginAction(data: { email: string; password: string }) {
+export const loginAction = async (form: IFormLog_In) => {
   try {
-    const response = await fetch(`${API_URL}auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-      cache: "no-store",
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      return {
-        success: false,
-        message: result.message || "Login failed",
-      };
-    }
-
-    const cookieStore = await cookies();
-
-    const setCookie = response.headers.getSetCookie();
-
-    for (const cookie of setCookie) {
-      const [cookiePair] = cookie.split(";");
-      const separator = cookiePair.indexOf("=");
-
-      if (separator === -1) continue;
-
-      const name = cookiePair.slice(0, separator);
-      const value = cookiePair.slice(separator + 1);
-
-      const options = cookie
-        .split(";")
-        .slice(1)
-        .reduce((acc: Record<string, string>, part) => {
-          const [key, ...rest] = part.trim().split("=");
-
-          acc[key.toLowerCase()] = rest.join("=");
-          return acc;
-        }, {});
-
-      cookieStore.set(name, value, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "lax",
-        // sameSite: "lax",
-        path: options.path || "/",
-        maxAge: options["max-age"] ? Number(options["max-age"]) : undefined,
-      });
-    }
+    const response = await AxiosServer("post", "auth/login", undefined, form);
+    await saveAuthCookies(response);
 
     return {
-      data: result.data,
       success: true,
-      message: "Login successful",
+      data: response.data.data || null,
     };
-  } catch (error) {
-    console.error("Login Action Error:", error);
-
+  } catch {
     return {
-      data: null,
       success: false,
-      message: "Something went wrong",
+      data: null,
     };
   }
-}
+};
+
+export const signUpAction = async (
+  form: IFormSign_up & { password: string },
+) => {
+  try {
+    const response = await AxiosServer("post", "auth/signup", undefined, form);
+    await saveAuthCookies(response);
+    return {
+      success: true,
+      data: response.data.data || null,
+    };
+  } catch {
+    return {
+      success: false,
+      data: null,
+    };
+  }
+};
+
+const saveAuthCookies = async (response: AxiosResponse) => {
+  const cookieStore = await cookies();
+
+  response.headers["set-cookie"]?.forEach((cookie: string) => {
+    const [pair] = cookie.split(";");
+    const [name, ...value] = pair.split("=");
+
+    if (["accessToken"].includes(name)) {
+      cookieStore.set(name, value.join("="), {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        path: "/",
+      });
+    }
+  });
+};
+
+export const logoutAction = async () => {
+  try {
+    await AxiosServer("post", "auth/logout");
+  } catch {
+    return { success: false };
+  }
+
+  const cookieStore = await cookies();
+
+  cookieStore.delete("accessToken");
+
+  return { success: true };
+};
+
+export const updateProfileAction = async (
+  userId: string,
+  updatedData: Partial<IFormSign_up>,
+) => {
+  try {
+    const { data } = await AxiosServer(
+      "patch",
+      `users/${userId}`,
+      undefined,
+      updatedData,
+    );
+
+    return {
+      success: true,
+      message: data.message || "Profile Updated successfully",
+    };
+  } catch {
+    return {
+      success: false,
+      message: "Error updating profile",
+    };
+  }
+};
+
+export const getUserDataAction = async () => {
+  try {
+    const { data } = await AxiosServer("get", "auth/me");
+
+    return {
+      success: true,
+      user: data?.data || null,
+    };
+  } catch {
+    return {
+      success: false,
+      user: null,
+    };
+  }
+};

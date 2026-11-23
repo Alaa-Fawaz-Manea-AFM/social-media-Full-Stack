@@ -5,7 +5,6 @@ import {
   UserInfCercle,
   Loader,
   BtnSeeMore,
-  CompHomePage,
 } from "@/components";
 import Image from "next/image";
 import { getUserId } from "@/lib/token";

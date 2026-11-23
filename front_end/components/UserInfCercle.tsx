@@ -17,7 +17,7 @@ const UserInfCercle = ({
     <Link
       href={currentUser?.id === user.id ? `/user/profile` : `/user/${user.id}`}
       className={`${col ? "flex-col" : ""} ${
-        time ? "" : " text-center"
+        time ? "" : ""
       } flex items-center ${MyPage ? "" : "cursor-pointer"} gap-2 w-fit cursor-pointer`}
     >
       <div className="flex items-center justify-center font-semibold bg-green-700 rounded-full text-3xl w-12 h-12">

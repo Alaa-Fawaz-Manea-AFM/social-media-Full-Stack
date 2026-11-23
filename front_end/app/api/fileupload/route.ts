@@ -21,14 +21,14 @@ export async function POST(req: NextRequest) {
     } else {
       const bytes = await file.arrayBuffer();
       const buffer = Buffer.from(bytes);
-      const res = await new Promise<any>((res, rej) => {
+      const res = await new Promise((res, rej) => {
         const uploadStream = cloudinary.uploader.upload_stream(
           {
             folder: folderName,
           },
           (error, result) => {
             if (error) rej(error);
-            else res(result as any);
+            else res(result);
           },
         );
         uploadStream.end(buffer);

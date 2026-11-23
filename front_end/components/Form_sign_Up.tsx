@@ -3,12 +3,12 @@ import { IFormSign_up } from "@/types";
 import { EditProfileInput } from "@/constant/Constant";
 import { FaRegEyeSlash, FaCheck } from "react-icons/fa";
 import { FaRegEye, FaXmark } from "react-icons/fa6";
-import { handleSignUp } from "@/constant/api";
 import { useRouter } from "next-nprogress-bar";
 import { BtnCAEd } from "@/components";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useUserContext } from "@/context/MyState";
+import { signUpAction } from "@/actions/auth";
 
 const Form_Log_Up = () => {
   const { setUser } = useUserContext();
@@ -54,15 +54,30 @@ const Form_Log_Up = () => {
     }
   }
 
-  const handleLoginFun = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLoginFun = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (fulfilledCount < 3) {
       toast.error("Password must meet all security requirements!");
       return;
     }
+    setLoading(true);
 
-    handleSignUp(form, setUser, router, setLoading);
+    const result = await signUpAction(form);
+
+    if (!result.success) {
+      toast.error("Sign Up Failed, Please try again.");
+      setLoading(false);
+      return;
+    }
+
+    setUser(result.data);
+
+    router.push("/");
+    router.refresh();
+
+    toast.success("Sign Up Successfully");
+    setLoading(false);
   };
 
   const handleChange = (

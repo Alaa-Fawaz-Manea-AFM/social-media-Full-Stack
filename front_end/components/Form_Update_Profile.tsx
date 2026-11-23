@@ -1,10 +1,11 @@
 "use client";
-import { handleSubmitUpdateProfile } from "@/constant/api";
 import { BtnCAEd, Loader } from "@/components/index";
 import { useUserContext } from "@/context/MyState";
 import { useRouter } from "next-nprogress-bar";
 import { IFormSign_up } from "@/types";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { updateProfileAction } from "@/actions/auth";
 
 const Form_Update_Profile = () => {
   const { user, setUser } = useUserContext();
@@ -29,14 +30,48 @@ const Form_Update_Profile = () => {
 
   const handleEditeProfile = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await handleSubmitUpdateProfile(
-      form,
-      user,
-      setUser,
-      router,
-      setValid,
-      setLoading,
-    );
+    if (!user?.id) return toast.error("Please log in first");
+    const updatedData: Partial<IFormSign_up> = {};
+    if (form.name.trim() !== user.name?.trim())
+      updatedData.name = form.name.trim();
+
+    if (form.userName.trim() !== user.userName?.trim())
+      updatedData.userName = form.userName.trim();
+
+    if (form.bio.trim() !== (user.bio?.trim() || ""))
+      updatedData.bio = form.bio.trim();
+
+    if (Object.keys(updatedData).length === 0) {
+      toast.error("No changes detected");
+      return;
+    }
+
+    setLoading(true);
+    setValid(true);
+
+    const result = await updateProfileAction(user.id, updatedData);
+
+    if (!result.success) {
+      toast.error(result.message);
+      setLoading(false);
+      setValid(false);
+      return;
+    }
+
+    setUser((prev) => {
+      if (!prev) return null;
+
+      return {
+        ...prev,
+        ...updatedData,
+      };
+    });
+
+    toast.success(result.message);
+    router.refresh();
+    router.back();
+    setLoading(false);
+    setValid(false);
   };
 
   const handleCancel = () => router.back();
