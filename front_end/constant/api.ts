@@ -12,6 +12,7 @@ import AxiosClient from "@/lib/axios-client";
 import axios from "axios";
 import { CREATE_POST, EDIT_POST } from "./Constant";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { toggleLikeAction } from "@/actions/like";
 
 // export const validEmail = process.env.NEXT_PUBLIC_EIMAIL_KEY;
 
@@ -100,15 +101,37 @@ export const handleToggleLikes = async (
   setLikeCount: Dispatch<SetStateAction<number>>,
 ) => {
   try {
-    const { data } = await AxiosClient.post(`likes/${postId}`);
-    setLiked(data.data);
-    setLikeCount(data.data ? ++likeCount : --likeCount);
+    const result = await toggleLikeAction(postId);
 
-    toast.success(data.message);
+    if (!result.success) {
+      toast.error(result.message);
+      return;
+    }
+
+    setLiked(result.liked);
+    setLikeCount((prev) => (result.liked ? prev + 1 : prev - 1));
+
+    toast.success(result.message);
   } catch {
-    toast.error("something went wrong, Please try again.");
+    toast.error("Something went wrong, Please try again.");
   }
 };
+// export const handleToggleLikes = async (
+//   postId: string,
+//   setLiked: Dispatch<SetStateAction<boolean>>,
+//   likeCount: number,
+//   setLikeCount: Dispatch<SetStateAction<number>>,
+// ) => {
+//   try {
+//     const { data } = await AxiosClient.post(`likes/${postId}`);
+//     setLiked(data.data);
+//     setLikeCount(data.data ? ++likeCount : --likeCount);
+
+//     toast.success(data.message);
+//   } catch {
+//     toast.error("something went wrong, Please try again.");
+//   }
+// };
 
 export const handleToggleSaved = async (
   postId: string,
