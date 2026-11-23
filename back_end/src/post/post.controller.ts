@@ -31,6 +31,7 @@ export class PostController {
     console.log(req);
     console.log(userId);
     console.log('====================================');
+
     return this.postService.getAllPostsAndUsersHomePage(
       query,
       req.user?.userId,
@@ -53,6 +54,11 @@ export class PostController {
   @AuthDecorator()
   @Get(':postId/:userId')
   getPost(@Param() ParamsDto: ParamsDto, @Req() req: any) {
+    const userId = req.user?.userId;
+    console.log('====================================');
+    console.log(req);
+    console.log(userId);
+    console.log('====================================');
     return this.postService.getPost(
       ParamsDto.postId,
       ParamsDto.userId,
