@@ -15,10 +15,11 @@
                 "POST",
                 "PUT",
                 "PATCH",
-                "DELETE"
+                "DELETE",
+                "OPTIONS"
             ],
             "headers":{
-                "Access-Control-Allow-Origin":"https://social-media-full-stack-fzzf.vercel.app"
+                "Access-Control-Allow-Origin":"*"
                 
             }
         }
