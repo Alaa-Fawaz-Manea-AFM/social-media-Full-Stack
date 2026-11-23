@@ -25,7 +25,7 @@ async function bootstrap() {
   app.use(morgan('dev'));
   app.use(json());
   // const allowedOrigins = [CLIENT_URL];
-  const allowedOrigins = [https://social-media-full-stack-fzzf.vercel.app;
+  const allowedOrigins = ['https://social-media-full-stack-fzzf.vercel.app']
   app.enableCors({
     origin: allowedOrigins,
     // origin: (origin, callback) => {
