@@ -13,7 +13,7 @@ import axios from "axios";
 import { CREATE_POST, EDIT_POST } from "./Constant";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
-export const validEmail = process.env.NEXT_PUBLIC_EIMAIL_KEY;
+// export const validEmail = process.env.NEXT_PUBLIC_EIMAIL_KEY;
 
 export const formateDate = (date: string = ""): string => {
   const seconds: number = Math.floor(
@@ -309,9 +309,7 @@ export const handleRemovePosts = async (
     await AxiosClient.delete(`posts/${postId}`);
 
     router.refresh();
-
     router.push("/");
-
     toast.success("Post deleted");
   } catch {
     toast.error("Failed to delete post, please try again.");

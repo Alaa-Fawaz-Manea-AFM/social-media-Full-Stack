@@ -21,7 +21,7 @@ export const AxiosServer = async (
     data,
     params: query,
     headers: {
-      Cookie: allCookies,
+      cookie: allCookies,
     },
   });
 };
