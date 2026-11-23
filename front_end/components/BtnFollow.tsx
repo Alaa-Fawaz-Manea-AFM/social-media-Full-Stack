@@ -40,6 +40,7 @@ const BtnFollow = ({ setFollowCounts, isFollow, userFollowId }: IBtnFollow) => {
     }
 
     if (result.success) toast.success(result.message);
+    setLoading(false);
   };
 
   return (
