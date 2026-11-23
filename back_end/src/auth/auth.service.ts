@@ -20,13 +20,14 @@ export class AuthService {
     private prisma: PrismaService,
     private config: AppConfig,
   ) {}
-
   secureCookieOptions = (): CookieOptions => {
     if (process.env.NODE_ENV === 'development') return {};
     return {
       httpOnly: true,
       secure: this.config.nodeEnv === 'production',
-      sameSite: 'strict',
+      sameSite: 'lax',
+      // sameSite: 'strict',
+      path: '/',
       maxAge: this.config.COOKIE_MAX_AGE1,
     };
   };
