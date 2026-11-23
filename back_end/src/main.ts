@@ -35,7 +35,7 @@ async function bootstrap() {
     },
     credentials: true,
     methods:'GET, HEAD, PUT, POST, DELETE, POTIONS, PATCH',
-    allawedHeaders:'Origin, X-Request-With, Content-Type, Accept, Authentication, Access-control-allowed-credentials, Access-control-allow-headers, Access-control-allow-methods, Access-control-allow-origin, User-Agent, Referer, Accept-Encoding, Accept-Language, Access-Control-Request-Headers, Cashe-Control, Pragma'
+    allawedHeaders:'Origin, X-Request-With, Content-Type, Accept, Authentication, Access-Control-Allow-Credentials, Access-control-allowed-credentials, Access-control-allow-headers, Access-control-allow-methods, Access-control-allow-origin, User-Agent, Referer, Accept-Encoding, Accept-Language, Access-Control-Request-Headers, Cashe-Control, Pragma'
   });
   app.enableShutdownHooks();
   await app.listen(process.env.PORT || 3001);
