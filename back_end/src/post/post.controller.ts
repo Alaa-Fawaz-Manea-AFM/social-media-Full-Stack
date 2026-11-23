@@ -26,9 +26,13 @@ export class PostController {
   @AuthDecorator()
   @Get('home-page')
   getAllPostsAndUsersHomePage(@Query() query: CurseDto, @Req() req: any) {
+    const userId = req.user?.userId;
+    console.log('====================================');
+    console.log(req);
+    console.log(userId);
+    console.log('====================================');
     return this.postService.getAllPostsAndUsersHomePage(
       query,
-
       req.user?.userId,
     );
   }
