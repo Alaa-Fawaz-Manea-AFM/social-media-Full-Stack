@@ -58,6 +58,7 @@ export async function loginAction(data: { email: string; password: string }) {
     }
 
     return {
+      data: result.data,
       success: true,
       message: "Login successful",
     };
@@ -65,6 +66,7 @@ export async function loginAction(data: { email: string; password: string }) {
     console.error("Login Action Error:", error);
 
     return {
+      data: null,
       success: false,
       message: "Something went wrong",
     };

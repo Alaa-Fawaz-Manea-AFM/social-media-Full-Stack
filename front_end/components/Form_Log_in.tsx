@@ -21,7 +21,7 @@
 
 //   const handleLoginFun = async (e: React.FormEvent<HTMLFormElement>) => {
 //     e.preventDefault();
-//     handleLogin(form, router, setUser, setLoading);
+// handleLogin(form, router, setUser, setLoading);
 //   };
 
 //   const handleChange = (
@@ -107,8 +107,8 @@ const Form_Log_in = () => {
         return;
       }
 
-      if (result.user) {
-        setUser(result.user as Parameters<typeof setUser>[0]);
+      if (result?.data) {
+        setUser(result.data as Parameters<typeof setUser>[0]);
       }
 
       router.refresh();
