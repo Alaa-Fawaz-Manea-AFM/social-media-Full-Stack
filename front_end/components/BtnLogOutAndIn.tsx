@@ -33,7 +33,6 @@ const BtnLogOutAndIn = ({ user, toggleMenu }: IBtnLog) => {
 
     setUser(null);
     router.refresh();
-    router.push("/log-in");
     setLoading(false);
   };
 

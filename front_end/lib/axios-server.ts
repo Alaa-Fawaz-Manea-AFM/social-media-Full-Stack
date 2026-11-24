@@ -1,7 +1,7 @@
 import axios from "axios";
 import { cookies } from "next/headers";
 
-export const DOMAIN: string = `${process.env.API_URL}`;
+const DOMAIN: string = `${process.env.API_URL}`;
 export const AxiosServer = async (
   method: "get" | "post" | "delete" | "patch" | "put",
   url: string,

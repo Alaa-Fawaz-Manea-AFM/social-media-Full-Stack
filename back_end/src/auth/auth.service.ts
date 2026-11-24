@@ -36,6 +36,9 @@ export class AuthService {
 
     const existingUser = await this.prisma.user.findUnique({
       where: { email },
+      select: {
+        id: true,
+      },
     });
 
     if (existingUser) throw new BadRequestException('Email already in use');
