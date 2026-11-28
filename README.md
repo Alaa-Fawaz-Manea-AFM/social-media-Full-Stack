@@ -4,10 +4,9 @@ A modern full-stack social networking platform built with Next.js and NestJS, fe
 
 ## 🌐 Live Demo
 
-- **Frontend:** [Visit VIBE]([YOUR_FRONTEND_URL](https://social-media-full-stack-fzzf.vercel.app/))
-- **Backend API:** [API Base URL](https://social-media-full-stack-green.vercel.app/)
-- **API Documentation:** [Swagger Docs]([YOUR_SWAGGER_URL](https://social-media-full-stack-green.vercel.app/))
-
+- **Frontend:** [Visit VIBE](https://social-media-full-stack-fzzf.vercel.app/)
+- **Backend API:** [API Base URL](https://social-media-full-stack-green.vercel.app/#posts)
+- **API Documentation:** [Swagger Docs](https://social-media-full-stack-green.vercel.app/#posts)
 # 💬 VIBE - Real-Time Social Media & Networking Platform
 
 A modern, features-heavy Social Network designed for high engagement and live interactivity. The application features user feeds, complex follow/unfollow socio-graphs, media attachments, and a fully functional real-time chat application with instant notifications.
