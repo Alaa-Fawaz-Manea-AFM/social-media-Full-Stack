@@ -17,10 +17,11 @@ A modern full-stack social networking platform built with Next.js and NestJS, fe
 
 ## 🛠️ Technical Stack
 
-- **Frontend:** Next.js, TypeScript, Tailwind CSS
-- **Backend:** NestJS
-- **Database & ORM:** PostgreSQL, Prisma ORM
-- **Deployment:** Vercel
+- **Frontend:** `Next.js` • `TypeScript` • `Tailwind CSS v4` • `Redux Toolkit` • `Shadcn/ui`
+- * **Backend:** `NestJS` • `Node.js` • `TypeScript` • `RESTful APIs` • `Class-Validator`
+- **Database & ORM:** `PostgreSQL` • `Prisma ORM`
+- **Caching:** `Redis`
+- **Deployment:** `Vercel` 
 
 ## 📐 Database Architecture & Real-Time Optimization
 
@@ -30,14 +31,8 @@ A modern full-stack social networking platform built with Next.js and NestJS, fe
 
 ## 💻 Getting Started
 
-1. Clone the repository:
-   `git clone https://github.com/Alaa-Fawaz-Manea-AFM/social-media-Full-Stack`
-
-2. Install dependencies in the frontend and backend directories.
-
-3. Configure environment variables in `.env` files.
-
-4. Run database migrations:
-   `npx prisma migrate dev`
-
-5. Start the frontend and backend development servers.
+1. **Clone the repo:** `git clone https://github.com/Alaa-Fawaz-Manea-AFM/social-media-Full-Stack`
+2. **Install deps:** `npm install`
+3. **Setup environment:** Create a `.env` file with `DATABASE_URL`, `CLOUDINARY_URL`, and `JWT_SECRET`.
+4. **Run migrations:** `npx prisma migrate dev`
+5. **Start dev server:** `npm run start:dev`
