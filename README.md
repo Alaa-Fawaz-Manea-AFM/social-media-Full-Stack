@@ -1,5 +1,4 @@
-
-# 💬 VIBE – Real-Time Social Media Platform
+# 💬 VIBE – Social Media Platform
 
 A modern full-stack social networking platform built with Next.js and NestJS, featuring real-time messaging, dynamic activity feeds, social interactions, and instant notifications.
 
