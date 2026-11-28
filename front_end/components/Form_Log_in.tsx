@@ -6,8 +6,8 @@ import { FaRegEye } from "react-icons/fa6";
 import { BtnCAEd } from "@/components";
 import { IFormLog_In } from "@/types";
 import { useState } from "react";
-import { loginAction } from "@/actions/auth";
 import { toast } from "react-toastify";
+import { loginAndsignUpAction } from "@/actions/auth";
 
 const Form_Log_in = () => {
   const { setUser } = useUserContext();
@@ -24,7 +24,7 @@ const Form_Log_in = () => {
     e.preventDefault();
 
     setLoading(true);
-    const result = await loginAction(form);
+    const result = await loginAndsignUpAction(form);
     if (!result.success) {
       toast.error("Log In Failed, Please try again.");
       setLoading(false);

@@ -1,5 +1,5 @@
 "use client";
-import { removePostAction } from "@/actions/posts";
+import { DataActions } from "@/actions/dataActions";
 import { useUserContext } from "@/context/MyState";
 import { Delete, Edit } from "@/public/assets";
 import { IPosts } from "@/types";
@@ -22,7 +22,8 @@ const BtnEditPost = ({
 
   const handleRemovePostsFUN = async () => {
     setIsOpen(false);
-    const result = await removePostAction(post.id);
+    const result = await DataActions("delete", `posts/${post.id}`);
+    // const result = await removePostAction(post.id);
 
     if (result.success) {
       router.refresh();

@@ -23,7 +23,7 @@ const UserInfoPage = async ({ params }: IParamsUser_Id) => {
           <div className="mx-auto text-3xl font-semibold">He has no posts</div>
         ) : (
           posts?.map((post: IPosts) => (
-            <PostDiv key={post.id} saved user post={post} userId={userId} />
+            <PostDiv key={post.id} saved user post={post} />
           ))
         )}
       </div>

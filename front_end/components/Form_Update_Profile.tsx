@@ -5,7 +5,7 @@ import { useRouter } from "next-nprogress-bar";
 import { IFormSign_up } from "@/types";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { updateProfileAction } from "@/actions/auth";
+import { DataActions } from "@/actions/dataActions";
 
 const Form_Update_Profile = () => {
   const { user, setUser } = useUserContext();
@@ -49,7 +49,12 @@ const Form_Update_Profile = () => {
     setLoading(true);
     setValid(true);
 
-    const result = await updateProfileAction(user.id, updatedData);
+    const result = await DataActions(
+      "patch",
+      `users/${user.id}`,
+      undefined,
+      updatedData,
+    );
 
     if (!result.success) {
       toast.error(result.message);

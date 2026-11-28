@@ -5,29 +5,13 @@ import { IFormSign_up, IFormLog_In } from "@/types";
 import { AxiosResponse } from "axios";
 import { cookies } from "next/headers";
 
-export const loginAction = async (form: IFormLog_In) => {
+export const loginAndsignUpAction = async (
+  form: IFormLog_In | (IFormSign_up & { password: string }),
+) => {
   try {
     const response = await AxiosServer("post", "auth/login", undefined, form);
     await saveAuthCookies(response);
 
-    return {
-      success: true,
-      data: response.data.data || null,
-    };
-  } catch {
-    return {
-      success: false,
-      data: null,
-    };
-  }
-};
-
-export const signUpAction = async (
-  form: IFormSign_up & { password: string },
-) => {
-  try {
-    const response = await AxiosServer("post", "auth/signup", undefined, form);
-    await saveAuthCookies(response);
     return {
       success: true,
       data: response.data.data || null,
@@ -70,44 +54,4 @@ export const logoutAction = async () => {
   cookieStore.delete("accessToken");
 
   return { success: true };
-};
-
-export const updateProfileAction = async (
-  userId: string,
-  updatedData: Partial<IFormSign_up>,
-) => {
-  try {
-    const { data } = await AxiosServer(
-      "patch",
-      `users/${userId}`,
-      undefined,
-      updatedData,
-    );
-
-    return {
-      success: true,
-      message: data.message || "Profile Updated successfully",
-    };
-  } catch {
-    return {
-      success: false,
-      message: "Error updating profile",
-    };
-  }
-};
-
-export const getUserDataAction = async () => {
-  try {
-    const { data } = await AxiosServer("get", "auth/me");
-
-    return {
-      success: true,
-      user: data?.data || null,
-    };
-  } catch {
-    return {
-      success: false,
-      user: null,
-    };
-  }
 };

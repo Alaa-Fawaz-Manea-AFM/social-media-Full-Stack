@@ -2,12 +2,12 @@
 
 import { abbreviateNumber } from "js-abbreviation-number";
 import { Like_Icon, Liked_Icon } from "@/public/assets";
-import { toggleLikeAction } from "@/actions/posts";
 import { useUserContext } from "@/context/MyState";
 import { useRouter } from "next-nprogress-bar";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import Image from "next/image";
+import { DataActions } from "@/actions/dataActions";
 
 const BtnLike = ({
   likeCounts,
@@ -30,11 +30,10 @@ const BtnLike = ({
     if (loading) return;
     try {
       setLoading(true);
-      const result = await toggleLikeAction(postId);
+      const result = await DataActions("post", `likes/${postId}`);
       if (!result.success) return toast.error(result.message);
-
-      setLiked(result.liked);
-      setLikeCount((prev) => (result.liked ? prev + 1 : prev - 1));
+      setLiked(result.data.data);
+      setLikeCount((prev) => (result.data.data ? prev + 1 : prev - 1));
       toast.success(result.message);
     } finally {
       setLoading(false);

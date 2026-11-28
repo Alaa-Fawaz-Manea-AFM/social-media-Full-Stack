@@ -1,6 +1,5 @@
 import { GlobalExceptionFilter } from './globalErrorHandler';
 import { ValidationPipe } from '@nestjs/common';
-import { WinstonConfig } from './utils/logger';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import cookieParser from 'cookie-parser';
@@ -9,9 +8,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    logger: WinstonConfig,
-  });
+  const app = await NestFactory.create(AppModule);
 
   app.use(helmet());
   app.useGlobalPipes(

@@ -8,7 +8,7 @@ import { BtnCAEd } from "@/components";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useUserContext } from "@/context/MyState";
-import { signUpAction } from "@/actions/auth";
+import { loginAndsignUpAction } from "@/actions/auth";
 
 const Form_Log_Up = () => {
   const { setUser } = useUserContext();
@@ -63,7 +63,7 @@ const Form_Log_Up = () => {
     }
     setLoading(true);
 
-    const result = await signUpAction(form);
+    const result = await loginAndsignUpAction(form);
 
     if (!result.success) {
       toast.error("Sign Up Failed, Please try again.");

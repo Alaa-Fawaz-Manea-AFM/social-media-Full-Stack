@@ -1,6 +1,6 @@
 "use client";
 
-import { toggleFollowingAction } from "@/actions/posts";
+import { DataActions } from "@/actions/dataActions";
 import { useUserContext } from "@/context/MyState";
 import { useRouter } from "next-nprogress-bar";
 import { Dispatch, SetStateAction, useState } from "react";
@@ -25,17 +25,16 @@ const BtnFollow = ({ setFollowCounts, isFollow, userFollowId }: IBtnFollow) => {
     if (loading) return;
 
     setLoading(true);
-    const result = await toggleFollowingAction(userFollowId);
-
+    const result = await DataActions("post", `followers/${userFollowId}`);
     if (!result.success) {
       toast.error(result.message);
       setLoading(false);
       return;
     }
-    setIsFollow(result.following);
+    setIsFollow(result.data.data);
     if (setFollowCounts) {
       setFollowCounts((prev) =>
-        result.following ? prev + 1 : Math.max(0, prev - 1),
+        result.data.data ? prev + 1 : Math.max(0, prev - 1),
       );
     }
 

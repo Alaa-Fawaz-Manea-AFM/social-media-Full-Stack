@@ -12,7 +12,6 @@ type IPostDiv = {
   post: IPosts;
   savedPage?: boolean;
   user?: boolean;
-  userId?: string;
   saved?: boolean;
   explore?: boolean;
 };
@@ -21,17 +20,15 @@ const PostDiv = ({
   savedPage,
   profile,
   explore,
-  userId,
   saved,
   post,
   user,
 }: IPostDiv) => {
   const { user: currentUser } = useUserContext();
-
   return (
     <div className="h-64 w-11/12 max-sm:mx-auto mdd:w-64 overflow-hidden rounded-xl relative">
       {post?.imageUrl && (
-        <Link href={`/post/${post?.id}/${userId || post?.userId}`}>
+        <Link href={`/post/${post?.id}/${post?.id}`}>
           <Image
             fill
             src={post?.imageUrl}
@@ -55,7 +52,7 @@ const PostDiv = ({
                   href={
                     currentUser?.id === post.userId
                       ? `/user/profile`
-                      : `/user/${userId}`
+                      : `/user/${post.userId}`
                   }
                   className="flex items-center justify-center font-semibold bg-green-700 rounded-full text-xl w-8 h-8 cursor-pointer"
                 >
@@ -82,7 +79,7 @@ const PostDiv = ({
                   href={
                     currentUser?.id === post.userId
                       ? `/user/profile`
-                      : `/user/${userId}`
+                      : `/user/${post.userId}`
                   }
                   className="flex items-center justify-center font-semibold bg-green-700 rounded-full w-7 h-7 cursor-pointer"
                 >

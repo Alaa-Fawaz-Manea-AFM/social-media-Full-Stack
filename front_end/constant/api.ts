@@ -8,7 +8,7 @@ import { Dispatch, SetStateAction } from "react";
 import axios from "axios";
 import { CREATE_POST, EDIT_POST } from "./Constant";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { createPostAction, updatePostAction } from "@/actions/posts";
+import { DataActions } from "@/actions/dataActions";
 
 export const formateDate = (date: string = ""): string => {
   const seconds: number = Math.floor(
@@ -93,8 +93,7 @@ export const handleSubmitCreateAndUpdatePosts = async (
       body.imageUrl = data.res.secure_url;
       body.public_id = data.res.public_id;
 
-      const result = await createPostAction(body);
-
+      const result = await DataActions("post", "posts", undefined, body);
       if (!result.success) {
         toast.error("Oops, Please try again.");
         return;
@@ -139,8 +138,12 @@ export const handleSubmitCreateAndUpdatePosts = async (
         return;
       }
 
-      const result = await updatePostAction(editPost.id, body);
-
+      const result = await DataActions(
+        "patch",
+        `posts/${editPost.id}`,
+        undefined,
+        body,
+      );
       if (!result.success) {
         toast.error("Oops, Please try again.");
         return;

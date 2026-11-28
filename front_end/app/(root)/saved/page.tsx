@@ -28,8 +28,7 @@ const SavedPage = async ({ searchParams }: Props) => {
 
     saved = data?.data?.saved || [];
     totalPage = data?.meta?.totalPage || data?.data?.meta?.totalPage || 0;
-  } catch (error) {
-    console.error("Backend Error caught safely in SavedPage:", error);
+  } catch {
     redirect("/saved?page=1");
   }
 

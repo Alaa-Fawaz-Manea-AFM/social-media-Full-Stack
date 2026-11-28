@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { getMorePosts } from "@/actions/posts";
 import { IPosts } from "@/types";
 import UserInfCercle from "./UserInfCercle";
 import BtnSeeMore from "./BtnSeeMore";
@@ -10,6 +9,7 @@ import Image from "next/image";
 import BtnLike from "./BtnLike";
 import BtnSaved from "./BtnSaved";
 import Loader from "./Loader";
+import { DataActions } from "@/actions/dataActions";
 
 export default function CompHomePage({
   targetUserId,
@@ -36,11 +36,8 @@ export default function CompHomePage({
       ? `posts/home-page?curseId=${cursorRef.current || ""}&targetUserId=${targetUserId}`
       : `posts/home-page?curseId=${cursorRef.current || ""}`;
 
-    const result = await getMorePosts(ApiUrl);
-    if (!result.success) {
-      setLoading(false);
-      return;
-    }
+    const result = await DataActions("get", ApiUrl);
+    if (!result.success) return setLoading(false);
     const newPosts = result.data?.data?.posts || [];
     if (newPosts.length === 0) {
       setHasMore(false);

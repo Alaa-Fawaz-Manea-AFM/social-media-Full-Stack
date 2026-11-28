@@ -10,8 +10,8 @@ import {
   useState,
 } from "react";
 
-import { getUserDataAction } from "@/actions/auth";
 import { IPosts, IUser } from "@/types";
+import { DataActions } from "@/actions/dataActions";
 
 type IValue = {
   user: IUser | null;
@@ -38,13 +38,9 @@ const MyState = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const result = await getUserDataAction();
-
-      if (result.success) {
-        setUser(result.user);
-      } else {
-        setUser(null);
-      }
+      const result = await DataActions("get", "auth/me");
+      if (result.success) setUser(result.data.data);
+      else setUser(null);
     };
 
     fetchUser();

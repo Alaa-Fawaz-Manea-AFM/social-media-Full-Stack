@@ -1,12 +1,12 @@
 "use client";
 
 import { Save_Icon, Saved_Icon } from "@/public/assets";
-import { toggleSavedAction } from "@/actions/posts";
 import { useUserContext } from "@/context/MyState";
 import { useRouter } from "next-nprogress-bar";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import Image from "next/image";
+import { DataActions } from "@/actions/dataActions";
 
 const BtnSaved = ({
   savedPage,
@@ -28,9 +28,9 @@ const BtnSaved = ({
     if (loading) return;
     try {
       setLoading(true);
-      const result = await toggleSavedAction(postId);
+      const result = await DataActions("post", `saves/${postId}`);
       if (!result.success) return toast.error(result.message);
-      setSaved(result.saved);
+      setSaved(result.data.data);
       toast.success(result.message);
       if (savedPage) router.refresh();
     } finally {
