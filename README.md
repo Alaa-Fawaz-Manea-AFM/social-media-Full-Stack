@@ -1,3 +1,13 @@
+# 💬 VIBE – Real-Time Social Media Platform
+
+A modern full-stack social networking platform built with Next.js and NestJS, featuring real-time messaging, dynamic activity feeds, social interactions, and instant notifications.
+
+## 🌐 Live Demo
+
+- **Frontend:** [Visit VIBE](YOUR_FRONTEND_URL)
+- **Backend API:** [API Base URL](YOUR_BACKEND_URL)
+- **API Documentation:** [Swagger Docs](YOUR_SWAGGER_URL)
+
 # 💬 VIBE - Real-Time Social Media & Networking Platform
 
 A modern, features-heavy Social Network designed for high engagement and live interactivity. The application features user feeds, complex follow/unfollow socio-graphs, media attachments, and a fully functional real-time chat application with instant notifications.
@@ -11,7 +21,7 @@ A modern, features-heavy Social Network designed for high engagement and live in
 
 ## 🛠️ Technical Stack
 * **Frontend:** `Next.js 14/15` • `TypeScript` • `TailwindCSS` • `Zustand` • `Framer Motion`
-* **Backend:** `NestJS` • `WebSockets (@nestjs/websockets)` • `EventEmitter2`
+* **Backend:** `NestJS` • `EventEmitter2`
 * **Database & ORM:** `PostgreSQL` • `Prisma ORM`
 * **Deployment:** `Railway`
 
