@@ -12,17 +12,15 @@ A modern full-stack social networking platform built with Next.js and NestJS, fe
 A modern, features-heavy Social Network designed for high engagement and live interactivity. The application features user feeds, complex follow/unfollow socio-graphs, media attachments, and a fully functional real-time chat application with instant notifications.
 
 ## ✨ Key Features
-* **🌐 Dynamic Activity Feed:** Chronological posts feed featuring likes, nested comment threads, and user mentions.
-* **⚡ Real-Time Chat Engine:** Instant messaging engine built on top of **WebSockets (WS/Socket.io)** with typing indicators and unread message counters.
-* **🔔 Live Notification System:** Dynamic in-app push alerts triggered immediately when users get likes, comments, or follow requests.
+* **🌐 Dynamic Activity Feed:** Chronological posts feed featuring likes, nested comment threads, and 
 * **📱 Responsive WhatsApp-like Layout:** A fluid messaging interface featuring smooth transitions between modern navigation sidebars and dedicated chat views on mobile.
 * **🖼️ Media Uploads:** Compressed image posting architecture handled securely through backend pipelines.
 
 ## 🛠️ Technical Stack
-* **Frontend:** `Next.js 14/15` • `TypeScript` • `TailwindCSS` • `Zustand` • `Framer Motion`
-* **Backend:** `NestJS` • `EventEmitter2`
+* **Frontend:** `Next.js 14/15` • `TypeScript` • `TailwindCSS`
+* **Backend:** `NestJS`
 * **Database & ORM:** `PostgreSQL` • `Prisma ORM`
-* **Deployment:** `Railway`
+* **Deployment:** `Vercel`
 
 ## 📐 Socio-Graph & WS Optimization
 * Modeled an advanced Self-Referential structure in **Prisma & PostgreSQL** to efficiently index user connections (Followers/Following) and optimize feeds.
