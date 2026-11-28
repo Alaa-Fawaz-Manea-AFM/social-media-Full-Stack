@@ -1,6 +1,6 @@
 # 💬 VIBE – Full-Stack Social Media Platform
 
-A modern Full-Stack Social Media Platform built with Next.js and NestJS, designed to provide users with an interactive social networking experience through dynamic posts, user relationships, likes, comments, and media sharing.
+A modern and scalable Full-Stack Social Media Platform built with **Next.js** and **NestJS**, designed to provide users with an interactive social networking experience through dynamic posts, user relationships, likes, comments, and media sharing.
 
 ## 🌐 Live Demo & Project Links
 
@@ -16,7 +16,7 @@ A modern Full-Stack Social Media Platform built with Next.js and NestJS, designe
 - **💬 Nested Comments:** Comment on posts and interact through nested discussions.
 - **📸 Media Uploads:** Upload and manage images using Cloudinary.
 - **👤 User Management:** Manage user profiles and social connections.
-- **📱 Responsive Design:** Mobile-friendly interface with a clean and intuitive user experience.
+- **📱 Responsive Design:** Modern and mobile-friendly interface with a clean and intuitive user experience.
 
 ## 🛠️ Technical Stack
 
@@ -50,31 +50,68 @@ A modern Full-Stack Social Media Platform built with Next.js and NestJS, designe
 ## 🏗️ Architecture & Engineering
 
 - Developed a modular backend architecture using NestJS.
+- Built a responsive frontend application using Next.js and TypeScript.
 - Designed relational database models using Prisma and PostgreSQL.
-- Implemented self-referential database relationships to manage followers and following.
+- Implemented self-referential database relationships to efficiently manage followers and following.
 - Built RESTful APIs to handle posts, comments, likes, users, and social relationships.
 - Integrated Cloudinary for cloud-based image uploading and media management.
 - Used Redux Toolkit for frontend state management.
-- Separated frontend and backend applications for independent development and deployment.
+- Separated frontend and backend applications to support independent development and deployment.
+
+## 📁 Project Structure
+
+```text
+VIBE/
+│
+├── front_end/
+│   ├── src/
+│   │   └── app/
+│   ├── public/
+│   ├── package.json
+│   └── .env.local
+│
+├── back_end/
+│   ├── src/
+│   ├── prisma/
+│   ├── package.json
+│   └── .env
+│
+└── README.md
+```
 
 ## ⚙️ Environment Configuration
 
-The project consists of two separate applications, each requiring its own environment configuration.
+The project consists of two independent applications, each requiring its own environment configuration.
 
-### 1. Backend Environment
+### 1. Frontend Environment
 
-Create a `.env` file inside the backend directory.
+Create a `.env.local` file inside the `front_end` directory.
+
+```env
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=
+NEXT_PUBLIC_CLOUDINARY_API_KEY=
+API_URL=
+NODE_ENV=development
+```
+
+**Environment Variables:**
+
+- `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`: Cloudinary cloud name.
+- `NEXT_PUBLIC_CLOUDINARY_API_KEY`: Public Cloudinary API key.
+- `API_URL`: Backend API base URL, used by server-side code.
+- `NODE_ENV`: Frontend application environment.
+
+### 2. Backend Environment
+
+Create a `.env` file inside the `back_end` directory.
 
 ```env
 PORT=
 NODE_ENV=development
-
 DATABASE_URL=
-
 CLOUDINARY_CLOUD_NAME=
 CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
-
 COOKIE_MAX_AGE1=
 JWT_SECRET_KEY=
 JWT_EXPIRES_IN=
@@ -82,6 +119,7 @@ COOKIE_DOMAIN=
 ```
 
 **Environment Variables:**
+
 - `PORT`: Backend server port.
 - `NODE_ENV`: Application environment.
 - `DATABASE_URL`: PostgreSQL database connection string.
@@ -90,28 +128,12 @@ COOKIE_DOMAIN=
 - `CLOUDINARY_API_SECRET`: Private Cloudinary API secret.
 - `COOKIE_MAX_AGE1`: Cookie expiration duration in milliseconds.
 - `JWT_SECRET_KEY`: Secret key used for JWT authentication.
-- `JWT_EXPIRES_IN`: JWT expiration duration.
+- `JWT_EXPIRES_IN`: JWT token expiration duration.
 - `COOKIE_DOMAIN`: Cookie domain configuration.
 
-### 2. Frontend Environment
-
-Create a `.env.local` file inside the frontend directory.
-
-```env
-NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=
-NEXT_PUBLIC_CLOUDINARY_API_KEY=
-
-API_URL=
-NODE_ENV=development
-```
-
-**Environment Variables:**
-- `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`: Cloudinary cloud name.
-- `NEXT_PUBLIC_CLOUDINARY_API_KEY`: Public Cloudinary API key.
-- `API_URL`: Backend API base URL.
-- `NODE_ENV`: Frontend application environment.
-
 ## 💻 Getting Started
+
+Follow these steps to run the project locally.
 
 ### 1. Clone the Repository
 
@@ -130,10 +152,16 @@ npm install
 
 Configure your backend `.env` file.
 
-Run database migrations:
+Run Prisma migrations:
 
 ```bash
 npx prisma migrate dev
+```
+
+Generate Prisma Client:
+
+```bash
+npx prisma generate
 ```
 
 Start the backend development server:
@@ -171,11 +199,29 @@ The backend runs on the configured server port.
 
 ## 🔒 Security
 
-- Keep JWT secrets and Cloudinary API secrets exclusively on the backend.
+- Implemented JWT-based authentication for secure user access.
+- Kept JWT secrets and Cloudinary API secrets exclusively on the backend.
 - Never expose private credentials through `NEXT_PUBLIC_` environment variables.
-- Keep `.env` and `.env.local` files out of public repositories.
-- Use environment variables to manage production credentials.
-- Configure CORS and cookie security according to the deployed frontend and backend domains.
+- Stored sensitive environment variables separately from frontend configuration.
+- Kept `.env` and `.env.local` files out of public repositories.
+- Used environment variables to manage production credentials.
+- Configured CORS and cookie security according to the deployed frontend and backend domains.
+
+## 🚀 Deployment
+
+The project is deployed using Vercel.
+
+- **Frontend Application:** Vercel.
+- **Backend API:** Vercel.
+
+Make sure to configure the required environment variables in the deployment settings for both applications.
+
+## 👨‍💻 Author
+
+**Alaa Fawaz Manea**
+
+- **GitHub:** [Alaa-Fawaz-Manea-AFM](https://github.com/Alaa-Fawaz-Manea-AFM)
+- **LinkedIn:** [Alaa Fawaz Manea](https://linkedin.com/in/alaa-fawaz-manea/)
 
 ---
 
