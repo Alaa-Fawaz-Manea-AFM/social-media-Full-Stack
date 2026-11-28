@@ -18,7 +18,7 @@ A modern full-stack social networking platform built with Next.js and NestJS, fe
 ## 🛠️ Technical Stack
 
 - **Frontend:** `Next.js` • `TypeScript` • `Tailwind CSS v4` • `Redux Toolkit` • `Shadcn/ui`
-- * **Backend:** `NestJS` • `Node.js` • `TypeScript` • `RESTful APIs` • `Class-Validator`
+- **Backend:** `NestJS` • `Node.js` • `TypeScript` • `RESTful APIs` • `Class-Validator`
 - **Database & ORM:** `PostgreSQL` • `Prisma ORM`
 - **Caching:** `Redis`
 - **Deployment:** `Vercel` 
