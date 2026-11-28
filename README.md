@@ -6,7 +6,6 @@ A modern and scalable Full-Stack Social Media Platform built with **Next.js** an
 
 - **Frontend Application:** [Visit VIBE](https://social-media-full-stack-fzzf.vercel.app/)
 - **Backend API:** [Backend Server](https://social-media-full-stack-green.vercel.app/)
-- **API Documentation:** [Swagger Documentation](https://social-media-full-stack-green.vercel.app/)
 
 ## ✨ Key Features
 
@@ -47,16 +46,31 @@ A modern and scalable Full-Stack Social Media Platform built with **Next.js** an
 - Git & GitHub
 - Postman
 
-## 🏗️ Architecture & Engineering
+## 📐 Database Architecture
 
-- Developed a modular backend architecture using NestJS.
-- Built a responsive frontend application using Next.js and TypeScript.
-- Designed relational database models using Prisma and PostgreSQL.
+- Designed relational database models using PostgreSQL and Prisma ORM.
 - Implemented self-referential database relationships to efficiently manage followers and following.
-- Built RESTful APIs to handle posts, comments, likes, users, and social relationships.
-- Integrated Cloudinary for cloud-based image uploading and media management.
-- Used Redux Toolkit for frontend state management.
-- Separated frontend and backend applications to support independent development and deployment.
+- Structured database models to support users, posts, comments, likes, and social relationships.
+
+## 🏗️ Project Architecture
+
+The project follows a full-stack architecture, separating the frontend application from the backend API.
+
+### Frontend
+- Built with Next.js and TypeScript.
+- Uses Redux Toolkit for frontend state management.
+- Styled with Tailwind CSS v4.
+- Uses Shadcn/ui for reusable interface components.
+- Communicates with the backend through RESTful APIs.
+
+### Backend
+- Built with NestJS and Node.js.
+- Uses a modular backend architecture.
+- Provides RESTful APIs to handle posts, comments, likes, users, and social relationships.
+- Uses Prisma ORM to interact with PostgreSQL.
+- Implements self-referential relationships for follower and following functionality.
+- Uses Class Validator for request validation.
+- Integrates Cloudinary for cloud-based image uploading and media management.
 
 ## 📁 Project Structure
 
@@ -85,7 +99,7 @@ The project consists of two independent applications, each requiring its own env
 
 ### 1. Frontend Environment
 
-Create a `.env.local` file inside the `front_end` directory.
+Create a `.env.local` file inside the `front_end` directory:
 
 ```env
 NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=
@@ -96,14 +110,16 @@ NODE_ENV=development
 
 **Environment Variables:**
 
-- `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`: Cloudinary cloud name.
-- `NEXT_PUBLIC_CLOUDINARY_API_KEY`: Public Cloudinary API key.
-- `API_URL`: Backend API base URL, used by server-side code.
-- `NODE_ENV`: Frontend application environment.
+| Variable | Description |
+|---|---|
+| `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` | Cloudinary cloud name |
+| `NEXT_PUBLIC_CLOUDINARY_API_KEY` | Public Cloudinary API key |
+| `API_URL` | Backend API base URL, used by server-side code |
+| `NODE_ENV` | Frontend application environment |
 
 ### 2. Backend Environment
 
-Create a `.env` file inside the `back_end` directory.
+Create a `.env` file inside the `back_end` directory:
 
 ```env
 PORT=
@@ -120,16 +136,26 @@ COOKIE_DOMAIN=
 
 **Environment Variables:**
 
-- `PORT`: Backend server port.
-- `NODE_ENV`: Application environment.
-- `DATABASE_URL`: PostgreSQL database connection string.
-- `CLOUDINARY_CLOUD_NAME`: Cloudinary cloud name.
-- `CLOUDINARY_API_KEY`: Cloudinary API key.
-- `CLOUDINARY_API_SECRET`: Private Cloudinary API secret.
-- `COOKIE_MAX_AGE1`: Cookie expiration duration in milliseconds.
-- `JWT_SECRET_KEY`: Secret key used for JWT authentication.
-- `JWT_EXPIRES_IN`: JWT token expiration duration.
-- `COOKIE_DOMAIN`: Cookie domain configuration.
+| Variable | Description |
+|---|---|
+| `PORT` | Backend server port |
+| `NODE_ENV` | Application environment |
+| `DATABASE_URL` | PostgreSQL database connection string |
+| `CLOUDINARY_CLOUD_NAME` | Cloudinary cloud name |
+| `CLOUDINARY_API_KEY` | Cloudinary API key |
+| `CLOUDINARY_API_SECRET` | Private Cloudinary API secret |
+| `COOKIE_MAX_AGE1` | Cookie expiration duration in milliseconds |
+| `JWT_SECRET_KEY` | Secret key used for JWT authentication |
+| `JWT_EXPIRES_IN` | JWT token expiration duration |
+| `COOKIE_DOMAIN` | Cookie domain configuration |
+
+**Important Security Notes:**
+
+- Never expose `JWT_SECRET_KEY` or `CLOUDINARY_API_SECRET` in frontend environment variables.
+- Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser and should never contain private credentials.
+- Keep private Cloudinary credentials and JWT secrets exclusively on the backend.
+- Ensure `API_URL` is used only in server-side code if it does not have the `NEXT_PUBLIC_` prefix.
+- Never commit real `.env` or `.env.local` files to GitHub.
 
 ## 💻 Getting Started
 
@@ -200,16 +226,15 @@ The backend runs on the configured server port.
 ## 🔒 Security
 
 - Implemented JWT-based authentication for secure user access.
-- Kept JWT secrets and Cloudinary API secrets exclusively on the backend.
-- Never expose private credentials through `NEXT_PUBLIC_` environment variables.
-- Stored sensitive environment variables separately from frontend configuration.
-- Kept `.env` and `.env.local` files out of public repositories.
-- Used environment variables to manage production credentials.
+- Kept JWT secrets and private Cloudinary credentials exclusively on the backend.
+- Separated frontend and backend environment configurations.
+- Used environment variables to manage sensitive application credentials.
 - Configured CORS and cookie security according to the deployed frontend and backend domains.
+- Avoided exposing private credentials through public frontend environment variables.
 
 ## 🚀 Deployment
 
-The project is deployed using Vercel.
+The project is deployed using **Vercel**.
 
 - **Frontend Application:** Vercel.
 - **Backend API:** Vercel.
