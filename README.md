@@ -30,8 +30,8 @@ A modern, features-heavy Social Network designed for high engagement and live in
 
 ## 💻 Getting Started
 
-1. **Clone the repo:** `git clone https://github.com/YOUR_USERNAME/vibe-social-network-websockets.git`
+1. **Clone the repo:** `git clone https://github.com/Alaa-Fawaz-Manea-AFM/social-media-Full-Stack`
 2. **Install deps:** `npm install`
 3. **Setup environment:** Create a `.env` file with `DATABASE_URL`, `JWT_SECRET`, and API endpoints.
 4. **Run migrations:** `npx prisma migrate dev`
-5. **Start dev server:** `npm run dev`
+5. **Start dev server:** `npm run start:dev`
